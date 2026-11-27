@@ -22,10 +22,13 @@ public class Kickable : MonoBehaviour
     public void Kick(Vector3 force)
     {
         // Set the 'was kicked' flag.
+        _wasKicked = true;
 
         // Add the input force to the rigidbody to make the item fly.
+        _rigidbody.AddForce(force, ForceMode2D.Impulse);
 
         // Let the GameController know this object was kicked.
+        _gameController.Kicked(gameObject);
     }
 
     // ------------------------------------------------------------------------

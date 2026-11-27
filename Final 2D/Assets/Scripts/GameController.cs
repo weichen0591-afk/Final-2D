@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     // Add a member variable that's a LIST (or ARRAY) of all of the objects
     //      that the player is required to kick.
     // This variable should be editable from the inspector.
+    [SerializeField] private List<GameObject> _requiredItems;
 
     private int _commonPoints;
     private int _uncommonPoints;
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
         SetGameEnabled(false);
 
         // Tell the HUD what the required items are.
+        _hud.SetRequiredItems(_requiredItems);
     }
 
     // ------------------------------------------------------------------------
@@ -76,6 +78,7 @@ public class GameController : MonoBehaviour
         // Calculate the player's total points.
 
         // Tell the GameOverUI.
+        _gameOverUI.Activate(_commonPoints, _uncommonPoints, _rarePoints, 0);
     }
 
     // ------------------------------------------------------------------------
@@ -89,7 +92,7 @@ public class GameController : MonoBehaviour
     // ------------------------------------------------------------------------
     // You will need to ADD PARAMETERS to this method to represent the GameObject
     //  kicked and the rarity of that object.
-    public void Kicked()
+    public void Kicked(GameObject item)
     {
         // Use a switch statement.
         // Based on the rarity of the object kicked, change the number of points
@@ -97,6 +100,7 @@ public class GameController : MonoBehaviour
         
 
         // Tell the HUD what item was kicked, and how many points we now have.
+        _hud.KickedItem(item);
         
     }
 }
